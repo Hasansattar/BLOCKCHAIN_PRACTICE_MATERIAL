@@ -1,3 +1,4 @@
    ***command***
-   cmd
-=> node ./input/config.js
+   
+               cmd
+              => node ./input/config.js
