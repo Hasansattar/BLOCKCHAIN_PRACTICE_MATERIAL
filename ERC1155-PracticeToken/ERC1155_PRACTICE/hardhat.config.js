@@ -32,6 +32,6 @@ const PRIVATE_KEY=`0x${process.env.PRIVATE_KEY_1}`;
   },
   //ehtereum API key
   etherscan: {
-    apiKey: "ZT7NMAJNR62F53F28IYHFABAFV1WST8U77",
+    apiKey: "ABFV6YASNFB52DFG88CW5A984CVSRDPEDM",
   }
 }
