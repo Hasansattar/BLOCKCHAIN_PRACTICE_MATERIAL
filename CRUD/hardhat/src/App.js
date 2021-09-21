@@ -2,7 +2,7 @@ import './App.css';
 import {useState} from 'react';
 import {ethers} from 'ethers';
 import Crud from './artifacts/contracts/Crud.sol/Crud.json';
-const crudAddress = '0x6b2D326388301CDCc13d26A8C69717EB4F5798A9';
+const crudAddress = '0x8F766dc69816D7FBB8c5C08F51a0eBfceAD225Fb';
 
 
 
