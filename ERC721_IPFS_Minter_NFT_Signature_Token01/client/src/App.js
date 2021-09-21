@@ -20,7 +20,10 @@ function App() {
    console.log( "blockchain ",blockchain);
   const data = useSelector((state) => state.data);
   console.log("data ",data);
-
+  
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [NFTS, setNFTS] = useState([]);
 
   const elementRef = useRef();
   const ipfsBaseUrl="https://ipfs.infura.io/ipfs/";
@@ -33,9 +36,13 @@ function App() {
       from:blockchain.account
     }).once("error",(error)=>{
       console.log(error);
+      setLoading(false);
+      setStatus("error")
 
     }).then((receipt)=>{
       console.log(receipt);
+      setLoading(false)
+      setStatus("succesfull minted you NFT")
 
     })
 
@@ -43,6 +50,8 @@ function App() {
 
 
   const createMetaDataAndMint= async(_name,_des,_imgBuffer)=>{
+    setLoading(true);
+    setStatus("uploading the data into ipfs")
     try {
       const addedImage  =await ipfsClient.add(_imgBuffer);
       console.log(ipfsBaseUrl +   addedImage.path);
@@ -58,18 +67,22 @@ function App() {
       console.log(ipfsBaseUrl +addedMetaData.path);
 
       mint(ipfsBaseUrl +addedMetaData.path);
-
+     
 
     } catch (error) {
        console.log("error", error)
+       setLoading(false);
+       setStatus("some thing error")
     }
        
   };
 
 
    const startMintingProcess=()=>{
+    
      createMetaDataAndMint(name,description,getImageData());
    //  getImageData();
+   
 
    };
 
@@ -117,7 +130,27 @@ const getImageData=()=>{
             <s.TextTitle style={{ textAlign: "center" }}>
                    Welcome mint your signature       {/* Name : {data.name} */}
             </s.TextTitle>
+            <s.SpacerSmall />
+            {loading ? (
+
+            <s.TextDescription style={{ textAlign: "center" }}>
+                   loading...    
+            </s.TextDescription>
+            ) : null }
+
             <s.SpacerLarge />
+
+
+            <s.SpacerSmall />
+            {status !=="" ? (
+
+            <s.TextDescription style={{ textAlign: "center" }}>
+                   {status}   
+            </s.TextDescription>
+            ) : null }
+
+            <s.SpacerLarge />
+
             <StyledButton
               onClick={(e) => {
                 e.preventDefault();
