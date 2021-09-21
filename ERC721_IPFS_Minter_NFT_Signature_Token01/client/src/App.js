@@ -5,6 +5,10 @@ import * as s from "./styles/globalStyles";
 import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import SignatureCanvas from "react-signature-canvas";
+import { create } from 'ipfs-http-client';
+
+const ipfsClient = create("https://ipfs.infura.io:5001/api/v0");
+ 
 
 export const StyledButton = styled.button`
   padding: 8px;
@@ -17,11 +21,55 @@ function App() {
   const data = useSelector((state) => state.data);
   console.log("data ",data);
 
+
   const elementRef = useRef();
+  const ipfsBaseUrl="https://ipfs.infura.io/ipfs/";
+  const name ="NFT NAME";
+  const description="IPFS MINTED NFT YAHOOOOO"
+
+
+  const mint=(uri)=>{
+    blockchain.smartContract.methods.mint(blockchain.account,uri).send({
+      from:blockchain.account
+    }).once("error",(error)=>{
+      console.log(error);
+
+    }).then((receipt)=>{
+      console.log(receipt);
+
+    })
+
+  };
+
+
+  const createMetaDataAndMint= async(_name,_des,_imgBuffer)=>{
+    try {
+      const addedImage  =await ipfsClient.add(_imgBuffer);
+      console.log(ipfsBaseUrl +   addedImage.path);
+
+      const metaDataObj={
+        name:_name,
+        description: _des,
+        image: ipfsBaseUrl +   addedImage.path
+      }
+      console.log(metaDataObj);
+
+      const addedMetaData= await ipfsClient.add(JSON.stringify(metaDataObj));
+      console.log(ipfsBaseUrl +addedMetaData.path);
+
+      mint(ipfsBaseUrl +addedMetaData.path);
+
+
+    } catch (error) {
+       console.log("error", error)
+    }
+       
+  };
 
 
    const startMintingProcess=()=>{
-     getImageData();
+     createMetaDataAndMint(name,description,getImageData());
+   //  getImageData();
 
    };
 
@@ -65,7 +113,7 @@ const getImageData=()=>{
             ) : null}
           </s.Container>
         ) : (
-          <s.Container fle={1} ai={"center"} style={{ padding: 24 }}>
+          <s.Container flex={1} ai={"center"} style={{ padding: 24 }}>
             <s.TextTitle style={{ textAlign: "center" }}>
                    Welcome mint your signature       {/* Name : {data.name} */}
             </s.TextTitle>
