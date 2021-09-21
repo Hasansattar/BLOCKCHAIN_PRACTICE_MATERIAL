@@ -29,8 +29,9 @@ export const fetchData=(account)=>{                                 //2
         dispatch(fetchDataRequest());                                //4
         try {
             let name =await store.getState().blockchain.smartContract.methods.name().call();              //5
-            let allTokens =await store.getState().blockchain.smartContract.methods.getAllTokens.call();
-              dispatch(fetchDataSuccess({
+            let allTokens =await store.getState().blockchain.smartContract.methods.getAllTokens().call();
+              console.log("ALL TOKENS in ACTION", allTokens); 
+            dispatch(fetchDataSuccess({
                   name,
                   allTokens
               })) 
