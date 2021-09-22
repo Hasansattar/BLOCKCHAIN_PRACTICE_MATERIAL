@@ -48,6 +48,7 @@ function App() {
         console.log(receipt);
         setLoading(false);
         clearCanvas();
+        dispatch(fetchData(blockchain.account));
         setStatus("succesfull minted you NFT");
       });
   };
@@ -78,7 +79,13 @@ function App() {
   };
 
   const startMintingProcess = () => {
-    createMetaDataAndMint(name, description, getImageData());
+    if(nftname !== "" && nftdes !== ""){
+      createMetaDataAndMint(name, description, getImageData());
+    }
+    else{
+      alert("fields is empty")
+    }
+ 
     //  getImageData();
   };
 
