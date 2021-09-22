@@ -23,11 +23,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [NFTS, setNFTS] = useState([]);
+  const [nftname, setNftName] = useState("");
+  const [nftdes, setNftdes] = useState("");
 
   const elementRef = useRef();
+
   const ipfsBaseUrl = "https://ipfs.infura.io/ipfs/";
-  const name = "NFT NAME";
-  const description = "IPFS MINTED NFT YAHOOOOO";
+  const name = nftname;
+  const description = nftdes;
 
   const mint = (uri) => {
     console.log("uri", uri);
@@ -153,8 +156,6 @@ function App() {
               </s.TextDescription>
             ) : null}
 
-            <s.SpacerLarge />
-
             <s.SpacerSmall />
             {status !== "" ? (
               <s.TextDescription style={{ textAlign: "center" }}>
@@ -184,14 +185,52 @@ function App() {
                 clear
               </StyledButton>
             </s.Container>
+            <s.SpacerSmall />
+
             <s.SpacerLarge />
-            <s.SpacerLarge />
+            <s.Container fd={"row"} jc={"center"}>
+              <input
+                type="text"
+                style={{
+                  border: "2px solid #3271bf",
+                  height: "40px",
+                  marginTop: "10px",
+                  backgroundColor: "transparent",
+                  boxShadow: "0 0 6px #3271bf",
+                  color: "white",
+                }}
+                placeholder="ENTER NFT NAME"
+                size={35}
+                onChange={(e) => setNftName(e.target.value)}
+                required
+              />
+              <s.SpacerSmall />
+              <textarea
+                type="text"
+                style={{
+                  border: "2px solid #3271bf",
+                  backgroundColor: "transparent",
+                  boxShadow: "0 0 6px #3271bf",
+                  color: "white",
+                }}
+                placeholder="ENTER NFT DESCRIPTION"
+                rows="4"
+                cols="35"
+                onChange={(e) => setNftdes(e.target.value)}
+                required
+              />
+            </s.Container>
+            <s.SpacerSmall />
+            <s.TextDescription>DRAW YOUR SIGNATURE HERE</s.TextDescription>
+            <s.SpacerSmall />
             <SignatureCanvas
               backgroundColor={"#3271bf"}
               penColor="white"
               canvasProps={{ width: 350, height: 350, className: "sigCanvas" }}
               ref={elementRef}
             />
+
+            <s.SpacerSmall />
 
             <s.SpacerLarge />
             <s.SpacerSmall />
@@ -200,18 +239,38 @@ function App() {
                 loading...
               </s.TextDescription>
             ) : (
-              NFTS.map((nft, index) => {
-                return (
-                  <s.Container key={index} style={{ padding: 16 }}>
-                    <s.TextTitle> {nft.metaData.name} </s.TextTitle>
-                    <img
-                      alt={nft.metaData.name}
-                      src={nft.metaData.image}
-                      width={150}
-                    />
-                  </s.Container>
-                );
-              })
+              <div style={{ width: "1000px", height: "100%" }}>
+                {NFTS.map((nft, index) => {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        border: "2px solid #3271bf",
+                        boxShadow: "0 0 6px #3271bf",
+                        width: "250px",
+                        height: "250px",
+                        float: "left",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <ul style={{ padding: "10px" }}>
+                        <li>
+                          <s.TextTitle> {nft.metaData.name} </s.TextTitle>
+                        </li>
+                        <s.SpacerSmall />
+                        <img
+                          alt={nft.metaData.name}
+                          src={nft.metaData.image}
+                          width={150}
+                        />
+                        <s.TextDescription>
+                          {nft.metaData.description}
+                        </s.TextDescription>
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </s.Container>
         )}
