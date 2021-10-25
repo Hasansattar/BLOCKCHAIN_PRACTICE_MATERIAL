@@ -6,8 +6,5 @@ In this Project we have used new released version of React Routers which is v6 b
 ## Installing
 If you'd like to test it out, install from npm:
 ```tsx
-
-
-
 npm install history react-router-dom@next
 ```
