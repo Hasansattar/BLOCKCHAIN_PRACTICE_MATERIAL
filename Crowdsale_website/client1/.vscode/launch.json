@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "client1:src/store/actions.addTransaction (nodejs12.x)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "${workspaceFolder}/",
+                "lambdaHandler": "src/store/actions.addTransaction"
+            },
+            "lambda": {
+                "runtime": "nodejs12.x",
+                "payload": {},
+                "environmentVariables": {}
+            }
+        }
+    ]
+}
