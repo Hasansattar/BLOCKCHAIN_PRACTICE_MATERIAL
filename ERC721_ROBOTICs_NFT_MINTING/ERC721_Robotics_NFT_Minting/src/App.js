@@ -106,7 +106,7 @@ function App() {
           </s.TextTitle>
           <s.SpacerSmall />
           <s.TextDescription style={{ textAlign: "center" }}>
-            Connect to the Ethereum network
+            Connect to the rinkeby network
           </s.TextDescription>
           <s.SpacerSmall />
           <StyledButton
