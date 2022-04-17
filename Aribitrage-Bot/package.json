@@ -1,0 +1,37 @@
+{
+  "name": "1incharbitragebot",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": {
+    "name": "Dennoh Peter",
+    "email": "dennoh@coredevs.co"
+  },
+  "contributors": [
+    {
+      "name": "G Gichuru",
+      "email": "ggichuru.dev@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Arbitrage",
+    "OneInch",
+    "Automation",
+    "Trading"
+  ],
+  "description": "This is an arbitrage bot that finds the best trading route on over 30+ decentralized exchanges",
+  "scripts": {
+    "start": "yarn workspace client start",
+    "chain": "yarn workspace hardhat chain",
+    "test": "yarn workspace hardhat test",
+    "compile": "yarn workspace hardhat compile",
+    "deploy:mainnet": "yarn workspace hardhat deploy:mainnet",
+    "deploy:local": "yarn workspace hardhat deploy:local"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
